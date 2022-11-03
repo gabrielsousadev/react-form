@@ -9,7 +9,7 @@ import MenuItem from "@mui/material/MenuItem";
 import RadioGroup from "@mui/material/RadioGroup";
 import Select from "@mui/material/Select";
 import TextField from "@mui/material/TextField";
-import Radio from '@mui/material/Radio';
+import Radio from "@mui/material/Radio";
 import { useForm } from "react-hook-form";
 import "./form.css";
 
@@ -21,18 +21,11 @@ const Form = () => {
   } = useForm();
 
   return (
-    <Box
-      className="box"
-      sx={{
-        width: 500,
-        height: 500,
-        backgroundColor: "white",
-      }}
-    >
+    <Box className="box">
       <div>
         <h1 className="title">Register form</h1>
       </div>
-      <form className="form"
+      <form
         onSubmit={handleSubmit((data) => {
           console.log(data);
         })}
@@ -55,8 +48,16 @@ const Form = () => {
           />
         </div>
         <div>
-          <TextField className="email"
-            {...register("email", { required: "Email is required." })}
+          <TextField
+            className="email"
+            {...register("email", {
+              required: "Email is required.",
+              pattern: {
+                value:
+                  /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+                message: "Please enter a valid email",
+              },
+            })}
             helperText={errors.email?.message?.toString()}
             label="E-mail"
             variant="filled"
@@ -65,20 +66,44 @@ const Form = () => {
         <div className="other">
           <FormControl sx={{ m: 0, minWidth: 120 }}>
             <InputLabel id="country">Country</InputLabel>
-            <Select labelId="country" label="country" {...register("country", {required: "Country is required."})}>
+            <Select
+              labelId="country"
+              label="country"
+              {...register("country", { required: "Country is required." })}
+            >
               <MenuItem value="united states">United States</MenuItem>
               <MenuItem value="brazil">Brazil</MenuItem>
               <MenuItem value="canada">Canada</MenuItem>
             </Select>
-            <FormHelperText>{errors.country?.message?.toString()}</FormHelperText>
+            <FormHelperText>
+              {errors.country?.message?.toString()}
+            </FormHelperText>
           </FormControl>
           <FormControl>
             <FormLabel id="genrer">Genrer</FormLabel>
             <RadioGroup row aria-labelledby="genrer">
-              <FormControlLabel {...register("genrer")} value="male" control={<Radio />} label="Male" />
-              <FormControlLabel {...register("genrer")} value="female" control={<Radio />} label="Female" />
-              <FormControlLabel {...register("genrer")} value="other" control={<Radio />} label="Other" />
+              <FormControlLabel
+                {...register("genrer", {required: "Please select a genrer"})}
+                value="male"
+                control={<Radio />}
+                label="Male"
+              />
+              <FormControlLabel
+                {...register("genrer")}
+                value="female"
+                control={<Radio />}
+                label="Female"
+              />
+              <FormControlLabel
+                {...register("genrer")}
+                value="other"
+                control={<Radio />}
+                label="Other"
+              />
             </RadioGroup>
+            <FormHelperText>
+              {errors.genrer?.message?.toString()}
+            </FormHelperText>
           </FormControl>
         </div>
         <div>
