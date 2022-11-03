@@ -1,11 +1,15 @@
 import { Box } from "@mui/material";
 import Button from "@mui/material/Button";
 import FormControl from "@mui/material/FormControl";
+import FormControlLabel from "@mui/material/FormControlLabel";
 import FormHelperText from "@mui/material/FormHelperText";
+import FormLabel from "@mui/material/FormLabel";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
+import RadioGroup from "@mui/material/RadioGroup";
 import Select from "@mui/material/Select";
 import TextField from "@mui/material/TextField";
+import Radio from '@mui/material/Radio';
 import { useForm } from "react-hook-form";
 import "./form.css";
 
@@ -28,7 +32,7 @@ const Form = () => {
       <div>
         <h1 className="title">Register form</h1>
       </div>
-      <form
+      <form className="form"
         onSubmit={handleSubmit((data) => {
           console.log(data);
         })}
@@ -58,7 +62,7 @@ const Form = () => {
             variant="filled"
           />
         </div>
-        <div className="country">
+        <div className="other">
           <FormControl sx={{ m: 0, minWidth: 120 }}>
             <InputLabel id="country">Country</InputLabel>
             <Select labelId="country" label="country" {...register("country", {required: "Country is required."})}>
@@ -68,9 +72,14 @@ const Form = () => {
             </Select>
             <FormHelperText>{errors.country?.message?.toString()}</FormHelperText>
           </FormControl>
-        </div>
-        <div>
-            
+          <FormControl>
+            <FormLabel id="genrer">Genrer</FormLabel>
+            <RadioGroup row aria-labelledby="genrer">
+              <FormControlLabel {...register("genrer")} value="male" control={<Radio />} label="Male" />
+              <FormControlLabel {...register("genrer")} value="female" control={<Radio />} label="Female" />
+              <FormControlLabel {...register("genrer")} value="other" control={<Radio />} label="Other" />
+            </RadioGroup>
+          </FormControl>
         </div>
         <div>
           <Button variant="contained" type="submit">
