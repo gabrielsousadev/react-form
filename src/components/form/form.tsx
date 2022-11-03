@@ -33,7 +33,7 @@ const Form = () => {
           console.log(data);
         })}
       >
-        <div>
+        <div className="name">
           <TextField
             {...register("firstName", { required: "First name is required." })}
             helperText={errors.firstName?.message?.toString()}
@@ -51,14 +51,14 @@ const Form = () => {
           />
         </div>
         <div>
-          <TextField
+          <TextField className="email"
             {...register("email", { required: "Email is required." })}
             helperText={errors.email?.message?.toString()}
-            label="Last Name"
+            label="E-mail"
             variant="filled"
           />
         </div>
-        <div>
+        <div className="country">
           <FormControl sx={{ m: 0, minWidth: 120 }}>
             <InputLabel id="country">Country</InputLabel>
             <Select labelId="country" label="country" {...register("country", {required: "Country is required."})}>
@@ -68,6 +68,9 @@ const Form = () => {
             </Select>
             <FormHelperText>{errors.country?.message?.toString()}</FormHelperText>
           </FormControl>
+        </div>
+        <div>
+            
         </div>
         <div>
           <Button variant="contained" type="submit">
